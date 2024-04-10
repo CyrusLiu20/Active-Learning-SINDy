@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N HIVLChirpEopt100Exp100Frac25Traj
+#PBS -l select=1:ncpus=250:mem=2000gb
+#PBS -l walltime=07:29:00
+#PBS -o ExplorationTest.out
+#PBS -e ExplorationTest.err
+
+module purge
+cd
+source anaconda3/bin/activate
+conda activate OpenExploration
+
+start_time=$(date +%s)
+echo "Start Time: $(date '+%Y-%m-%d %H:%M:%S')"
+
+# cd to dir where directory was created
+cd $PBS_O_WORKDIR
+echo "working directory is $PBS_O_WORKDIR"
+echo "Experiment Name: $PBS_JOBNAME"
+python3 main_F8.py
+
+end_time=$(date +%s)
+echo "End Time: $(date '+%Y-%m-%d %H:%M:%S')"
+echo "Elapsed Time: $((end_time - start_time)) seconds"
